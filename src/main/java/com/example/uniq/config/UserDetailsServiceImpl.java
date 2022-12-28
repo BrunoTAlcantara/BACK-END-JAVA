@@ -1,23 +1,32 @@
 package com.example.uniq.config;
 
+import com.example.uniq.domain.entities.Usuario;
 import com.example.uniq.domain.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+
 @Transactional
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    final UsuarioRepository usuarioRepository;
+
+    public UserDetailsServiceImpl(UsuarioRepository usuarioRepository) {
+        System.out.println("CHEGAAQUII2");
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("CHEGAAQUII");
 
-        UserModel userModel = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username:" + username));
+        Usuario userModel = usuarioRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Este email nao existe:" + username));
 
-        return new User(userModel.getUsername(), userModel.getPassword(), true, true, true, true, userModel.getAuthorities());
+
+        return UserPrincipal.create(userModel);
     }
 }

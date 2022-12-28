@@ -1,4 +1,4 @@
-package com.example.uniq.api;
+package com.example.uniq.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
