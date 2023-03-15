@@ -48,5 +48,5 @@ mvn spring-boot:run
 
 ## Contribuição
 
-- Para contribuir apenas abra um PR e sera analisada :sweat_smile:!
+- Para contribuir apenas abra um PR e sera analisada :sweat_smile:
 
